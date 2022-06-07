@@ -6,21 +6,24 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates) {
-    console.log(selectedDates[0]);
+  onClose(selectedDatesArr) {
+    console.log(selectedDatesArr[0]);
   },
 };
 
 const input = document.querySelector('#datetime-picker');
-const 
+const startBtn = document.querySelector('button[data-start]');
+startBtn.setAttribute('disabled', true);
 
 const dateNow = new Date();
-console.log(dateNow);
+console.log(dateNow.getTime());
 
 flatpickr(input, { options });
 
-let selectedDates = [];
+let selectedDatesArr = [];
 input.addEventListener("input", function () { 
-  selectedDates.push(input.value);
-  console.log(selectedDates)
+  const selectedDate = new Date(input.value);
+  selectedDatesArr.push(input.value);
+  console.log(selectedDatesArr);
+  console.log(selectedDate.getTime());
 })
