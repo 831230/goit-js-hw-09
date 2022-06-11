@@ -64,12 +64,13 @@ const options = {
           console.log(convertMs(timerDuration));
 
           function addLeadingZero(value) {
-              return value.padStart(2, 0);  
+            const string = String(value);
+            return string.padStart(2, '0');  
           };
 
-          timerSecond.innerHTML = objectTimeDuration.seconds;
-          timerMinutes.innerHTML = objectTimeDuration.minutes;
-          timerHours.innerHTML = objectTimeDuration.hours;
+          timerSecond.innerHTML = addLeadingZero(objectTimeDuration.seconds);
+          timerMinutes.innerHTML = addLeadingZero(objectTimeDuration.minutes);
+          timerHours.innerHTML = addLeadingZero(objectTimeDuration.hours);
           timerDays.innerHTML = addLeadingZero(objectTimeDuration.days);
           
           if (timerDuration <= 0) { 
