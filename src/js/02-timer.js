@@ -37,6 +37,7 @@ const options = {
           calculateTimerDuration(timeNow, selectedDate);
 
           function convertMs(timerDuration) {
+            const objectTimeDuration = {};
             // Number of milliseconds per unit of time
             const second = 1000;
             const minute = second * 60;
@@ -56,7 +57,7 @@ const options = {
               (((timerDuration % day) % hour) % minute) / second
             );
 
-            return (objectTimeDuration = { days, hours, minutes, seconds });
+            return objectTimeDuration = { days, hours, minutes, seconds };
             
           }
           console.log(convertMs(timerDuration));
