@@ -35,9 +35,10 @@ const options = {
         timerId = setInterval(() => {
           const timeNow = new Date().getTime();
           calculateTimerDuration(timeNow, selectedDate);
-
+          
+          let objectTimeDuration = {};
           function convertMs(timerDuration) {
-            const objectTimeDuration = {};
+            
             // Number of milliseconds per unit of time
             const second = 1000;
             const minute = second * 60;
