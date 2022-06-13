@@ -5,45 +5,70 @@ const delayStepInput = document.querySelector('input[name="step"]');
 const amountInput = document.querySelector('input[name="amount"]');
 const submitBtn = document.querySelector('button[type="submit"]');
 
-function createPromise(position, delayStep) {
+// let timer = 0;
+
+// function createPromise(position, timer) {
+//   return new Promise((resolve, reject) => { 
+//     setTimeout(() => { 
+//       const shouldResolve = Math.random() > 0.3;
+//     if (shouldResolve) {
+//         // Fulfill
+//       resolve({ position, timer });
+//       } else {
+//         // Reject
+//       reject({ position, timer });
+//       }
+//     });
+//   }, timer);
+// };
+
+
+
+
+// ===========================================================================================
+let timer = 0;
+
+function createPromise(position, timer) {
   return new Promise((resolve, reject) => { 
-    const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-      // Fulfill
-    resolve(position);
-    } else {
-      // Reject
-    reject(delayStep);
-    }
+    setTimeout(() => { 
+      const shouldResolve = Math.random() > 0.3;
+    if (shouldResolve) {
+        // Fulfill
+      resolve({ position, timer });
+      } else {
+        // Reject
+      reject({ position, timer });
+      }
+    }, timer);
   });
 };
-
-let firstDelay = "";
-let delayStep = "";
-let amount = "";
 
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
   
-  firstDelay = firstDelayInput.value; 
-  delayStep = delayStepInput.value;
-  amount = amountInput.value;
-
-  setTimeout(() => { 
-    
-    for (let position = 0; position < amount; position++) { 
+  let firstDelay = Number(firstDelayInput.value); 
+  let delayStep = Number(delayStepInput.value);
+  let amount = Number(amountInput.value);
+  timer = firstDelay; 
+    for (let position = 1; position <= amount; position++) { 
       
-      createPromise(position, delayStep)
-        .then(({ position, delayStep }) => {
-          console.log(`✅ Fulfilled promise ${position} in ${delayStep}ms`);
+      createPromise(position, timer)
+        .then(({ position, timer }) => {
+          console.log(`✅ Fulfilled promise ${position} in ${timer}ms`);
+          Notiflix.Notify.success(
+            `Fulfilled promise ${position} in ${timer}ms`
+          );
         })
-        .catch(({ position, delayStep }) => {
-          console.log(`❌ Rejected promise ${position} in ${delayStep}ms`);
+        .catch(({ position, timer }) => {
+          console.log(`❌ Rejected promise ${position} in ${timer}ms`);
+          Notiflix.Notify.failure(
+            `Rejected promise ${position} in ${timer}ms`
+          );
         });
+      timer += delayStep;
     };
-  }, firstDelay);
 });
-
+// ==================================================================================================
 
 
 // submitBtn.addEventListener("click", function (event) {
